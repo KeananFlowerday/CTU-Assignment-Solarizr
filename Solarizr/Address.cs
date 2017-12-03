@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,5 +29,32 @@ namespace Solarizr
 		public string City { get; set; }
 		public string PostalCode { get; set; }
 		public string Country { get; set; }
+
+		public static int LastIndex()
+		{
+			int _return = -1;
+			using (SqliteConnection db = new SqliteConnection("Filename=Solarizr_db.db"))
+			{
+				db.Open();
+				SqliteCommand selectCommand = new SqliteCommand("SELECT TOP 1 PK_ID FROM Table ORDER BY ID DESC", db);
+				SqliteDataReader query;
+				try
+				{
+					query = selectCommand.ExecuteReader();
+				}
+				catch (SqliteException error)
+				{
+					//Handle error
+					return -1;
+				}
+				while (query.Read())
+				{
+					string _ret = (query.GetString(0));
+					int.TryParse(_ret,out _return);
+				}
+				db.Close();
+			}
+			return _return;
+		}
 	}
 }
