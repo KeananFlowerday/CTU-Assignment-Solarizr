@@ -1,0 +1,107 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Solarizr"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    x:Class="Solarizr.AppointmentManager"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="68"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="680"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="AppBarGrid" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="1260" Grid.ColumnSpan="3">
+
+            <CommandBar Margin="316,0,-2,0" Background="Gainsboro">
+                <CommandBar.Content>
+                    <Grid/>
+                </CommandBar.Content>
+                <AppBarButton Label="Home" Icon="Home" Click="AppBarHome_Click"/>
+                <AppBarButton Icon="People" Label="Project Sites" Click="AppBarProjSite_Click"/>
+                <AppBarButton Icon="Clock" Label="Appointment Manager" Click="AppBarAppointment_Click"/>
+                <AppBarButton Icon="World" Label="Map" Click="AppBarMap_Click"/>
+            </CommandBar>
+            <Grid HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="320" Background="Gainsboro">
+                <TextBlock x:Name="txtCurrTime" HorizontalAlignment="Left" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Top" FontSize="24" Margin="10,10,0,0"/>
+                <TextBlock x:Name="txtCurrDate" HorizontalAlignment="Left" TextWrapping="Wrap" Text="ddd, d MMM yy" VerticalAlignment="Top" FontSize="24" Margin="90,10,0,0"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="GridMiniDash" Grid.Column="2" HorizontalAlignment="Left" Height="632" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280">
+            <Grid x:Name="gridWeather" Margin="-214,89,0,287">
+                <WebView x:Name="WV_Weather" HorizontalAlignment="Left" Height="241" Margin="114,9,0,0" VerticalAlignment="Top" Width="380"/>
+                <Rectangle Fill="White" HorizontalAlignment="Left" Height="256" Stroke="White" VerticalAlignment="Top" Width="214"/>
+                <Rectangle Fill="White" HorizontalAlignment="Left" Height="40" Margin="214,9,0,0" Stroke="White" VerticalAlignment="Top" Width="280"/>
+            </Grid>
+            <TextBlock HorizontalAlignment="Left" Margin="13,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="28" Width="251" Height="44">
+                <Run Text=" Next Appointment:"/>
+                <LineBreak/>
+                <Run/>
+            </TextBlock>
+            <TextBlock x:Name="txtTime" HorizontalAlignment="Left" Margin="93,39,0,0" TextWrapping="Wrap" Text="TI:ME" VerticalAlignment="Top" Height="45" Width="91" FontSize="36"/>
+            <Controls:RadialProgressBar HorizontalAlignment="Left" Height="101" Margin="93,350,0,0" Value="0" VerticalAlignment="Top" Width="100"/>
+            <!--<Border BorderBrush="Aquamarine" BorderThickness="2" HorizontalAlignment="Left" Height="638" VerticalAlignment="Top" Width="279" Margin="0,0,0,-6"/>-->
+        </Grid>
+        <Grid x:Name="GridUpcoming" HorizontalAlignment="Left" Height="632" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280" BorderThickness="2" BorderBrush="Aquamarine">
+            <ListView x:Name="ListV_Upcoming" HorizontalAlignment="Left" Height="511" Margin="5,111,0,0" VerticalAlignment="Top" Width="265">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Site}"/>
+                                <TextBlock Text="{Binding Date}"/>
+                                <!--Other properties not neccessary as the appointment has not taken place yet-->
+
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Upcoming Appointments" VerticalAlignment="Top" FontSize="24" Width="270" Height="38" Margin="4,4,0,0"/>
+            <ComboBox HorizontalAlignment="Left" Margin="111,49,0,0" VerticalAlignment="Top" Width="159" Height="40"/>
+            <TextBlock HorizontalAlignment="Left" Margin="15,57,0,0" TextWrapping="Wrap" Text="Filter by:" VerticalAlignment="Top" Width="80" FontSize="20"/>
+        </Grid>
+        <Grid x:Name="GridMain" Grid.Column="1" HorizontalAlignment="Left" Height="632" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="660">
+            <Grid x:Name="ApptCreateGrid" HorizontalAlignment="Left" Height="192" VerticalAlignment="Top" Width="640" Margin="10,68,0,0">
+                <Button x:Name="BtnApptSave" HorizontalAlignment="Center" Margin="550,121,10,0" VerticalAlignment="Top" Height="70" Click="BtnApptSave_Click" Width="80">
+                    <Button.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="Assets/Save1.jpg"/>
+                    </Button.Background>
+                </Button>
+                <ComboBox x:Name="cmbxApptSitePicker" HorizontalAlignment="Left" Margin="311,10,0,0" VerticalAlignment="Top" Width="321"/>
+                <TimePicker x:Name="timeApptTimePicker" HorizontalAlignment="Left" Margin="311,84,0,0" VerticalAlignment="Top" Width="319"/>
+                <DatePicker x:Name="dateApptDatePicker" HorizontalAlignment="Left" Margin="311,47,0,0" VerticalAlignment="Top" Width="319"/>
+                <TextBlock HorizontalAlignment="Left" Margin="40,7,0,0" TextWrapping="Wrap" Text="Project Site:" VerticalAlignment="Top" FontSize="22"/>
+                <TextBlock HorizontalAlignment="Left" Margin="40,50,0,0" TextWrapping="Wrap" Text="Date:" VerticalAlignment="Top" FontSize="22"/>
+                <TextBlock HorizontalAlignment="Left" Margin="40,87,0,0" TextWrapping="Wrap" Text="Time:" VerticalAlignment="Top" FontSize="22"/>
+            </Grid>
+            <TextBlock HorizontalAlignment="Left" Margin="182,10,0,0" TextWrapping="Wrap" Text="New Appointment" VerticalAlignment="Top" Width="320" Height="53" FontSize="36" TextAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Left" Margin="84,265,0,0" TextWrapping="Wrap" Text="Unsubmitted Reports" VerticalAlignment="Top" Width="526" Height="53" FontSize="36" TextAlignment="Center"/>
+            <ListView x:Name="Unsubmitted_ListV" HorizontalAlignment="Left" Height="299" Margin="10,323,0,0" VerticalAlignment="Top" Width="640">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Site}"/>
+                                <TextBlock Text="{Binding Date}"/>
+                                <TextBlock Text="{Binding Status}"/>
+                                <TextBlock Text="{Binding Comments}"/>
+                                <!--Not Submitted, therefore don't add submit property-->
+
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+    </Grid>
+</Page>
