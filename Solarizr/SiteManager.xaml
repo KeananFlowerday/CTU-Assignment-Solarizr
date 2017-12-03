@@ -40,7 +40,7 @@
                     <DataTemplate>
                         <Grid>
                             <StackPanel>
-                                <TextBlock Text="{Binding Site}"></TextBlock>
+                                <TextBlock Text="{Binding }"></TextBlock>
                                 <TextBlock Text="{Binding Date}"></TextBlock>
                                 <!--Other properties not neccessary as the appointment has not taken place yet-->
 
@@ -50,7 +50,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Project Sites" VerticalAlignment="Top" FontSize="24" Width="270" Height="38" Margin="4,4,0,0" TextAlignment="Center"/>
-            <ComboBox HorizontalAlignment="Left" Margin="111,49,0,0" VerticalAlignment="Top" Width="159" Height="40"/>
+            <ComboBox x:Name="cmb_Sites" HorizontalAlignment="Left" Margin="111,49,0,0" VerticalAlignment="Top" Width="159" Height="40"/>
             <TextBlock HorizontalAlignment="Left" Margin="15,57,0,0" TextWrapping="Wrap" Text="Filter by:" VerticalAlignment="Top" Width="80" FontSize="20"/>
         </Grid>
         <Grid x:Name="GridMain" Grid.Column="1" HorizontalAlignment="Left" Height="632" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="660">

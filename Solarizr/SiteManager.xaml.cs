@@ -1,6 +1,8 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,9 +25,20 @@ namespace Solarizr
 	/// </summary>
 	public sealed partial class SiteManager : Page
 	{
+		ObservableCollection<User> _out;
 		public SiteManager()
 		{
 			this.InitializeComponent();
+			try
+			{
+				_out = Grab_Entries();
+				//cmb_Sites.ItemsSource = _out;
+				//ListV_Upcoming.ItemsSource = cmb_Sites.Items.;
+			}catch(Exception e)
+			{
+				Debug.WriteLine(e.Message);
+			}
+
 		}
 
 		private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -42,59 +55,54 @@ namespace Solarizr
 			User _Site = new User(_name,_phone, _address);
 			using (SqliteConnection db = new SqliteConnection("Filename=Solarizr_db.db"))
 			{
-				db.Open();
-				SqliteCommand _insertAddress = new SqliteCommand();
-				SqliteCommand _insertUser = new SqliteCommand();
-				_insertUser.Connection = db;
-				_insertAddress.Connection = db;
-				int _adIndex = Address.LastIndex();
-				if (_adIndex == -1)
-				{
-					throw new SqliteException("You Done Fucked Up", 500);
-				}
-				//Use parameterized query to prevent SQL injection attacks
-				_insertUser.CommandText = "INSERT INTO User_tbl VALUES (NULL, "+_Site.Name+","+_Site.Phone+","+_adIndex+");";
-				_insertAddress.CommandText ="INSERT INTO Address_tbl VALUES(NULL, );";
 				try
 				{
-					_insertAddress.ExecuteReader();
-					_insertUser.ExecuteReader();
-				}
-				catch (SqliteException error)
+					db.Open();
+					SqliteCommand _insertAddress = new SqliteCommand();
+					SqliteCommand _insertUser = new SqliteCommand();
+					_insertUser.Connection = db;
+					_insertAddress.Connection = db;
+					_insertAddress.CommandText = "INSERT INTO Address_tbl (Street, Suburb, City, Postal_Code, Country) VALUES('" + _address.Street + "','" + _address.Suburb + "','" + _address.City + "','" + _address.PostalCode + "','" + _address.Country + "'); ";
+					try
+					{
+						_insertAddress.ExecuteReader();
+
+					}
+					catch (SqliteException error)
+					{
+						Debug.WriteLine("Insert Address Error");
+						return;
+					}
+
+					int _adIndex = Address.LastIndex();
+
+					if (_adIndex == -1)
+					{
+						throw new SqliteException("You Done Fucked Up", 500);
+					}
+
+					//Use parameterized query to prevent SQL injection attacks
+					_insertUser.CommandText = "INSERT INTO User_tbl(Name, Phone, FK_AdID) VALUES ('" + _Site.Name + "','" + _Site.Phone + "','" + _adIndex + "');";
+
+					try
+					{
+						//_insertAddress.ExecuteReader();
+						_insertUser.ExecuteReader();
+					}
+					catch (SqliteException error)
+					{
+						Debug.WriteLine("Insert User Error");
+						return;
+					}
+					db.Close();
+				}catch(Exception ex)
 				{
-					//Handle errord
-					return;
+					Debug.WriteLine("btnSave.Click() Error");
 				}
-				db.Close();
 			}
 		}
 
-		private void Add_Site(object sender, RoutedEventArgs e)
-		{
-			using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db"))
-			{
-				db.Open();
-
-				SqliteCommand insertCommand = new SqliteCommand();
-				insertCommand.Connection = db;
-
-				//Use parameterized query to prevent SQL injection attacks
-				insertCommand.CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry);";
-				//insertCommand.Parameters.AddWithValue("@Entry", Input_Box.Text);
-
-				try
-				{
-					insertCommand.ExecuteReader();
-				}
-				catch (SqliteException error)
-				{
-					//Handle errord
-					return;
-				}
-				db.Close();
-			}
-			//Output.ItemsSource = Grab_Entries();
-		}
+		
 
 		private void AppBarHome_Click(object sender, RoutedEventArgs e)
 		{
@@ -114,6 +122,41 @@ namespace Solarizr
 		private void AppBarMap_Click(object sender, RoutedEventArgs e)
 		{
 			this.Frame.Navigate(typeof(MapView), e);
+		}
+
+		private ObservableCollection<User> Grab_Entries()
+		{
+			ObservableCollection<User> entries = new ObservableCollection<User>();
+			using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db"))
+			{
+				db.Open();
+				SqliteCommand selectCommand = new SqliteCommand("SELECT * from User_tbl INNER JOIN Address_tbl on User_tbl.FK_AdID = Address_tbl.PK_ID;", db);
+				SqliteDataReader query;
+				try
+				{
+					query = selectCommand.ExecuteReader();
+				}
+				catch (SqliteException error)
+				{
+					Debug.WriteLine("SelectCommand Error");
+					return entries;
+				}
+				while (query.Read())
+				{
+					Address _a = new Address();
+					_a.ID = int.Parse(query.GetString(4));
+					_a.Street = query.GetString(5);
+					_a.Suburb = query.GetString(6);
+					_a.City = query.GetString(7);
+					_a.PostalCode = query.GetString(8);
+					_a.Country = query.GetString(9);
+					User _u = new User(query.GetString(1), query.GetString(2),_a);
+					_u.ID = int.Parse(query.GetString(0));
+					entries.Add(_u);
+				}
+				db.Close();
+			}
+			return entries;
 		}
 	}
 }

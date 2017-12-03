@@ -2,6 +2,7 @@
 using Microsoft.Data.Sqlite.Internal;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -41,35 +42,41 @@ namespace Solarizr
 
 				String _AddresstableCommand = "CREATE TABLE IF NOT EXISTS Address_tbl (" +
 					"PK_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-					"Street NVARCHAR(2048) NULL, " +
-					"Suburb NVARCHAR(2048) NULL, " +
-					"City NVARCHAR(2048) NULL, " +
-					"Postal_Code NVARCHAR(2048) NULL),"+
-					"Country NVARCHAR(2048) NULL";
+					"Street text NULL, " +
+					"Suburb text NULL, " +
+					"City text NULL, " +
+					"Postal_Code text NULL,"+
+					"Country text NULL);";
 
 				String _UsertableCommand = "CREATE TABLE IF NOT EXISTS User_tbl (" +
 					"PK_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-					"Name NVARCHAR(2048) NULL, " +
-					"Phone NVARCHAR(2048) NULL)," +
-					"FOREIGN KEY (FK_AdID) REFERENCES Address_tbl(PK_ID)";
+					"Name text NULL, " +
+					"Phone text NULL," +
+					"FK_AdID INTEGER NULL," +
+					"FOREIGN KEY (FK_AdID) REFERENCES Address_tbl(PK_ID));";
 
 				String _AppointmenttableCommand = "CREATE TABLE IF NOT EXISTS Appointment_tbl (" +
 					"PK_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-					"Date NVARCHAR(2048) NULL, " +
-					"Status NVARCHAR(2048) NULL, " +
+					"Date text NULL, " +
+					"Status text NULL, " +
+					"FK_CID INTEGER NULL, " +
+					"FK_SMID INTEGER NULL, " +
+					"FK_AdID INTEGER NULL, " +
 					"FOREIGN KEY (FK_CID) REFERENCES user_tbl(PK_ID)," +
 					"FOREIGN KEY (FK_SMID) REFERENCES user_tbl(PK_ID)," +
-					"FOREIGN KEY (FK_AdID) REFERENCES Address_tbl(PK_ID)";
+					"FOREIGN KEY (FK_AdID) REFERENCES Address_tbl(PK_ID));";
 
 				String _NotetableCommand = "CREATE TABLE IF NOT EXISTS Note_tbl (" +
 					"PK_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-					"Note NVARCHAR(2048) NULL, " +
-					"FOREIGN KEY (FK_ApID) REFERENCES Appointment_tbl(PK_ID)";
+					"Note text NULL, " +
+					"FK_ApID INTEGER NULL, " +
+					"FOREIGN KEY (FK_ApID) REFERENCES Appointment_tbl(PK_ID));";
 
 				String _PicturetableCommand = "CREATE TABLE IF NOT EXISTS Picture_tbl (" +
 					"PK_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-					"Path NVARCHAR(2048) NULL, " +
-					"FOREIGN KEY (FK_ApID) REFERENCES Appointment_tbl(PK_ID)";
+					"Path text NULL, " +
+					"FK_ApID INTEGER NULL, " +
+					"FOREIGN KEY (FK_ApID) REFERENCES Appointment_tbl(PK_ID));";
 
 				SqliteCommand _createUserTable = new SqliteCommand(_AddresstableCommand, db);
 				SqliteCommand _createAddressTable = new SqliteCommand(_UsertableCommand, db);
@@ -87,7 +94,12 @@ namespace Solarizr
 				}
 				catch (SqliteException e)
 				{
-					//Do nothing
+					Debug.WriteLine("DB CREATION FAILED");
+					Debug.WriteLine("");
+					Debug.WriteLine(e.Message + ": " + e.InnerException);
+					Debug.WriteLine(e.SqliteErrorCode);
+					Debug.WriteLine(e.StackTrace);
+
 				}
 				db.Close();
 			}

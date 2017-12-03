@@ -36,7 +36,7 @@ namespace Solarizr
 			using (SqliteConnection db = new SqliteConnection("Filename=Solarizr_db.db"))
 			{
 				db.Open();
-				SqliteCommand selectCommand = new SqliteCommand("SELECT TOP 1 PK_ID FROM Table ORDER BY ID DESC", db);
+				SqliteCommand selectCommand = new SqliteCommand("SELECT PK_ID FROM Address_tbl ORDER BY PK_ID DESC LIMIT 1;", db);
 				SqliteDataReader query;
 				try
 				{
