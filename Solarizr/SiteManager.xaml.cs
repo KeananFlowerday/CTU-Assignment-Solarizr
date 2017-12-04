@@ -33,7 +33,7 @@ namespace Solarizr
 			{
 				_out = Grab_Entries();
 				//cmb_Sites.ItemsSource = _out;
-				//ListV_Upcoming.ItemsSource = cmb_Sites.Items.;
+				ListV_Upcoming.ItemsSource = _out;
 			}catch(Exception e)
 			{
 				Debug.WriteLine(e.Message);

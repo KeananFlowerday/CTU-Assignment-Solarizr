@@ -35,13 +35,20 @@
         </Grid>
         <Grid x:Name="GridMiniDash" Grid.Column="2" HorizontalAlignment="Left" Height="632" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280" BorderThickness="2" BorderBrush="Aquamarine"/>
         <Grid x:Name="GridSites" HorizontalAlignment="Left" Height="632" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280" BorderThickness="2" BorderBrush="Aquamarine">
-            <ListView x:Name="ListV_Upcoming" HorizontalAlignment="Left" Height="511" Margin="5,111,0,0" VerticalAlignment="Top" Width="265">
+            <ListView x:Name="ListV_Upcoming" Height="511" Margin="5,111,0,0" Width="265">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
+                    <DataTemplate >
+                        <Grid HorizontalAlignment="Stretch" CornerRadius="10" Padding="5" Background="#72A3E4E4" Margin="0,0,0,14" Width="250">
                             <StackPanel>
-                                <TextBlock Text="{Binding }"></TextBlock>
-                                <TextBlock Text="{Binding Date}"></TextBlock>
+                                <TextBlock Text="Site : " FontWeight="Bold"></TextBlock>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                                <TextBlock Text="{Binding Phone}"></TextBlock>
+                                <TextBlock FontWeight="Bold" Text="Address : "></TextBlock>
+                                <TextBlock Text="{Binding Address.Street}"></TextBlock>
+                                <TextBlock Text="{Binding Address.Suburb}"></TextBlock>
+                                <TextBlock Text="{Binding Address.City}"></TextBlock>
+                                <TextBlock Text="{Binding Address.PostalCode}"></TextBlock>
+                                <TextBlock Text="{Binding Address.Country}"></TextBlock>
                                 <!--Other properties not neccessary as the appointment has not taken place yet-->
 
                             </StackPanel>
