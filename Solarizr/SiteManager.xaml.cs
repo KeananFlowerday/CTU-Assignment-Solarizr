@@ -31,10 +31,9 @@ namespace Solarizr
 			this.InitializeComponent();
 			try
 			{
-				_out = Grab_Entries();
-				//cmb_Sites.ItemsSource = _out;
-				//ListV_Upcoming.ItemsSource = cmb_Sites.Items.;
-			}catch(Exception e)
+				_out = Grab_Entries(); ListV_Upcoming.ItemsSource = _out;
+            }
+            catch(Exception e)
 			{
 				Debug.WriteLine(e.Message);
 			}

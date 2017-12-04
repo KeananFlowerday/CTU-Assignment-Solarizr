@@ -40,8 +40,13 @@
                     <DataTemplate>
                         <Grid>
                             <StackPanel>
-                                <TextBlock Text="{Binding }"></TextBlock>
-                                <TextBlock Text="{Binding Date}"></TextBlock>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                                <TextBlock Text="{Binding Phone}"></TextBlock>
+                                <TextBlock Text="{Binding Address.Street}"></TextBlock>
+                                <TextBlock Text="{Binding Address.Suburb}"></TextBlock>
+                                <TextBlock Text="{Binding Address.City}"></TextBlock>
+                                <TextBlock Text="{Binding Address.PostalCode}"></TextBlock>
+                                <TextBlock Text="{Binding Address.Country}"></TextBlock>
                                 <!--Other properties not neccessary as the appointment has not taken place yet-->
 
                             </StackPanel>
