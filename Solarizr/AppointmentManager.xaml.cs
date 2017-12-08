@@ -36,7 +36,7 @@ namespace Solarizr
 			{
 				appoinments = Grab_Appointments();
 				//cmb_Sites.ItemsSource = _out;
-				//ListV_Upcoming.ItemsSource = Appoinments;
+				ListV_Upcoming.ItemsSource = appoinments;
 			}
 			catch (Exception e)
 			{
