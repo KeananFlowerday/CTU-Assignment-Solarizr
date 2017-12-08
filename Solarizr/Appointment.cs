@@ -20,6 +20,7 @@ namespace Solarizr
 			Customer = customer;
 			Address = address;
 			SiteManager = siteManager;
+			Submitted = false;
 		}
 
 		public int ID { get; set; }
@@ -28,12 +29,12 @@ namespace Solarizr
 		public User Customer { get; set; }
 		public Address Address { get; set; }
 		public User SiteManager { get; set; }
+		public bool Submitted { get; set; }
 
 	}
 
 	public enum AppointmentStatus
 	{
-		UnSubmitted,
-		Submitted
+		Done
 	}
 }
