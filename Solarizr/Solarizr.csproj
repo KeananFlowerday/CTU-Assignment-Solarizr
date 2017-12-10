@@ -97,6 +97,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppointmentData.cs" />
     <Compile Include="AppointmentManager.xaml.cs">
       <DependentUpon>AppointmentManager.xaml</DependentUpon>
     </Compile>
@@ -112,6 +113,7 @@
     </Compile>
     <Compile Include="Note.cs" />
     <Compile Include="Picture.cs" />
+    <Compile Include="ProjectSiteData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteManager.xaml.cs">
       <DependentUpon>SiteManager.xaml</DependentUpon>

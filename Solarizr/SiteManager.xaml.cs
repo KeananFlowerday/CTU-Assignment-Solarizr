@@ -31,8 +31,8 @@ namespace Solarizr
 			this.InitializeComponent();
 			try
 			{
-
-				_out = Grab_Entries();
+				ProjectSiteData _ps = new ProjectSiteData();
+				_out = _ps.GetAllUsers();
 				ListV_Upcoming.ItemsSource = _out;
           
 			}
@@ -104,8 +104,6 @@ namespace Solarizr
 			}
 		}
 
-		
-
 		private void AppBarHome_Click(object sender, RoutedEventArgs e)
 		{
 			this.Frame.Navigate(typeof(Dashboard), e);
@@ -125,46 +123,6 @@ namespace Solarizr
 		{
 			this.Frame.Navigate(typeof(MapView), e);
 		}
-
-		private ObservableCollection<User> Grab_Entries()
-		{
-			ObservableCollection<User> entries = new ObservableCollection<User>();
-			using (SqliteConnection db = new SqliteConnection("Filename=Solarizr_db.db"))
-			{
-				db.Open();
-				SqliteCommand selectCommand = new SqliteCommand("SELECT * from User_tbl INNER JOIN Address_tbl on User_tbl.FK_AdID = Address_tbl.PK_ID;", db);
-				SqliteDataReader query;
-				try
-				{
-					query = selectCommand.ExecuteReader();
-				}
-				catch (SqliteException error)
-				{
-					Debug.WriteLine("SelectCommand Error");
-					return entries;
-				}
-				while (query.Read())
-				{
-					try
-					{
-						Address _a = new Address();
-						_a.ID = int.Parse(query.GetString(4));
-						_a.Street = query.GetString(5);
-						_a.Suburb = query.GetString(6);
-						_a.City = query.GetString(7);
-						_a.PostalCode = query.GetString(8);
-						_a.Country = query.GetString(9);
-						User _u = new User(query.GetString(1), query.GetString(2), _a);
-						_u.ID = int.Parse(query.GetString(0));
-						entries.Add(_u);
-					}catch(Exception e)
-					{
-						Debug.WriteLine("AssignUser Error");
-					}
-				}
-				db.Close();
-			}
-			return entries;
-		}
+		
 	}
 }
