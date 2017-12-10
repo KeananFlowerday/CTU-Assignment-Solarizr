@@ -11,7 +11,7 @@ namespace Solarizr
 {
     class ProjectSiteData
     {
-		public User GetUser(int _id)
+		public User GetUserById(int _id)
 		{
 			User _u = new User();
 			using (SqliteConnection db = new SqliteConnection("Filename=Solarizr_db.db"))
@@ -55,8 +55,9 @@ namespace Solarizr
 			
 		}
 
-		public ObservableCollection<User> GetUsers(int _id)
+		public ObservableCollection<User> GetUsersById(int _id)
 		{
+			//Will be added if needed
 			return null;
 		}
 
@@ -100,6 +101,61 @@ namespace Solarizr
 				db.Close();
 			}
 			return _users;
+		}
+
+		public bool InsertUser(User _user)
+		{
+			Address _address = _user.Address;
+			using (SqliteConnection db = new SqliteConnection("Filename=Solarizr_db.db"))
+			{
+				try
+				{
+					db.Open();
+					SqliteCommand _insertAddress = new SqliteCommand();
+					SqliteCommand _insertUser = new SqliteCommand();
+					_insertUser.Connection = db;
+					_insertAddress.Connection = db;
+					_insertAddress.CommandText = "INSERT INTO Address_tbl (Street, Suburb, City, Postal_Code, Country) VALUES('" + _address.Street + "','" + _address.Suburb + "','" + _address.City + "','" + _address.PostalCode + "','" + _address.Country + "'); ";
+					try
+					{
+						_insertAddress.ExecuteReader();
+
+					}
+					catch (SqliteException error)
+					{
+						Debug.WriteLine("Insert Address Error");
+						return false;
+					}
+
+					int _adIndex = Address.LastIndex();
+
+					if (_adIndex == -1)
+					{
+						throw new SqliteException("You Done Fucked Up", 500);
+					}
+
+					//Use parameterized query to prevent SQL injection attacks
+					_insertUser.CommandText = "INSERT INTO User_tbl(Name, Phone, FK_AdID) VALUES ('" + _user.Name + "','" + _user.Phone + "','" + _adIndex + "');";
+
+					try
+					{
+						//_insertAddress.ExecuteReader();
+						_insertUser.ExecuteReader();
+					}
+					catch (SqliteException error)
+					{
+						Debug.WriteLine("Insert User Error");
+						return false;
+					}
+					db.Close();
+				}
+				catch (Exception ex)
+				{
+					Debug.WriteLine("btnSave.Click() Error");
+					return false;
+				}
+				return true;
+			}
 		}
 	}
 }
