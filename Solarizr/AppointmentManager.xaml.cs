@@ -34,7 +34,7 @@ namespace Solarizr
 
 			try
 			{
-				appoinments = _ad.GetAllAppointments();
+				appoinments = _ad.GetTodaysAppointments();
 				//cmb_Sites.ItemsSource = _out;
 				ListV_Upcoming.ItemsSource = appoinments;
 			}
@@ -46,17 +46,7 @@ namespace Solarizr
 
 		private void BtnApptSave_Click(object sender, RoutedEventArgs e)
 		{
-			int cmbxItem = cmbxApptSitePicker.SelectedIndex;
-			// ProjectSite pSite = SiteList[cmbxItem];
-
-
-			DateTimeOffset _date = dateApptDatePicker.Date;
-			TimeSpan _time = timeApptTimePicker.Time;
-
-			DateTime apptDateTime;
-
-			apptDateTime = _date.DateTime;
-			apptDateTime.Add(_time);
+			
 
 			#region Notes
 			//To convert back to offset and bind to datetimepicker   
@@ -66,7 +56,7 @@ namespace Solarizr
 			//dateApptDatePicker.Date = bindTime;
 			#endregion
 
-			//  Appointment newAppointment = new Appointment(apptDateTime, pSite);
+			
 		}
 
 		private void AppBarHome_Click(object sender, RoutedEventArgs e)
