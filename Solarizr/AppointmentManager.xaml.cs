@@ -46,8 +46,6 @@ namespace Solarizr
 
 		private void BtnApptSave_Click(object sender, RoutedEventArgs e)
 		{
-			
-
 			#region Notes
 			//To convert back to offset and bind to datetimepicker   
 			//DateTime newBookingDate;

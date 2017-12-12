@@ -192,6 +192,7 @@ ClientBin/
 *.jfm
 *.pfx
 *.publishsettings
+*.appxmanifest
 node_modules/
 orleans.codegen.cs
 
