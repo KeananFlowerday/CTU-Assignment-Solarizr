@@ -33,6 +33,7 @@ namespace Solarizr
 
 		AppointmentData apptData = new AppointmentData();
 		ObservableCollection<Appointment> appointments;
+        ObservableCollection<Appointment> allAppointments;
 
         double numAppointments = 0;
         double numComplete = 0;
@@ -53,10 +54,16 @@ namespace Solarizr
 
             //add data to progress bar
             SetProgressBar();
-            
+
 
 
             //foreach( appt a in list) create marker on calander
+            allAppointments = apptData.GetAllAppointments();
+            foreach (Appointment a in allAppointments)
+            {
+
+
+            }
 
 
             //sitelist read from db - make list;
