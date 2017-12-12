@@ -28,11 +28,18 @@ namespace Solarizr
 	/// </summary>
 	public sealed partial class Dashboard : Page
 	{
+<<<<<<< HEAD
+        ObservableCollection<Appointment> Appointments;
+        //List<ProjectSite> SiteList = new List<ProjectSite>();
+        //initialised below
+        public Dashboard()
+=======
 		AppointmentData apptData = new AppointmentData();
 		ObservableCollection<Appointment> appointments;
 		
 		//initialised below
 		public Dashboard()
+>>>>>>> e8a434f979499d4b360e9e13bae929c4412890e2
 		{
 			this.InitializeComponent();
 
@@ -43,18 +50,28 @@ namespace Solarizr
 			StartTimers();
 
 			SmallMap.Loaded += Mapsample_Loaded;
-			//foreach( appt a in list) create marker on calander
-			//foreach(appt a in list) if a.date == today create marker on map
-			//sitelist read from db - make list;
+            
+            getMapObjects();
+            
+            //foreach( appt a in list) create marker on calander
+            //foreach(appt a in list) if a.date == today create marker on map
+            //sitelist read from db - make list;
 
-			//initialize webview for weather - link from dian
-			WebView_Weather.Navigate(new Uri("http://forecast.io/embed/#lat=42.3583&lon=-71.0603&name=the Job Site&color=#00aaff&font=Segoe UI&units=uk"));
+            //initialize webview for weather - link from dian
+            WebView_Weather.Navigate(new Uri("http://forecast.io/embed/#lat=42.3583&lon=-71.0603&name=the Job Site&color=#00aaff&font=Segoe UI&units=uk"));
 
 		}
+<<<<<<< HEAD
+
+        private async void getMapObjects()
+        {
+            foreach (Appointment a in Appointments)
+=======
 		
 private async void getMapObjects()
         {
             foreach (Appointment a in appointments)
+>>>>>>> e8a434f979499d4b360e9e13bae929c4412890e2
             {
                 // The address or business to geocode.
                 string addressToGeocode = a.Address.ToString();
@@ -68,12 +85,24 @@ private async void getMapObjects()
                 // Geocode the specified address, using the specified reference point
                 // as a query hint. Return no more than 3 results.
                 MapLocationFinderResult result =
+<<<<<<< HEAD
+                      await MapLocationFinder.FindLocationsAsync(
+                                        addressToGeocode,
+                                        hintPoint,
+                                        3);
+=======
                       await MapLocationFinder.FindLocationsAsync(addressToGeocode, hintPoint);
+>>>>>>> e8a434f979499d4b360e9e13bae929c4412890e2
 
                 // If the query returns results, display the coordinates
                 // of the first result.
                 if (result.Status == MapLocationFinderStatus.Success)
                 {
+<<<<<<< HEAD
+                    tbOutputText.Text = "result = (" +
+                          result.Locations[0].Point.Position.Latitude.ToString() + "," +
+                          result.Locations[0].Point.Position.Longitude.ToString() + ")";
+=======
                     Debug.WriteLine("result = (" +
                           result.Locations[0].Point.Position.Latitude.ToString() + "," +
                           result.Locations[0].Point.Position.Longitude.ToString() + ")");
@@ -92,6 +121,7 @@ private async void getMapObjects()
                     // add to map and center it
                     SmallMap.MapElements.Add(myPOI);
 
+>>>>>>> e8a434f979499d4b360e9e13bae929c4412890e2
                 }
             }
 
