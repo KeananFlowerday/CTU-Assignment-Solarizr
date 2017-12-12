@@ -33,36 +33,57 @@ namespace Solarizr
 
 		AppointmentData apptData = new AppointmentData();
 		ObservableCollection<Appointment> appointments;
+
+        double numAppointments = 0;
+        double numComplete = 0;
 		
 		//initialised below
 		public Dashboard()
 
 		{
 			this.InitializeComponent();
+            txt_Percent.Text = "---%";
 
 			appointments = apptData.GetTodaysAppointments();
 
-            getMapObjects();
-											 
-			StartTimers();
-
-			SmallMap.Loaded += Mapsample_Loaded;
-            
-            getMapObjects();
-            
-            //foreach( appt a in list) create marker on calander
             //foreach(appt a in list) if a.date == today create marker on map
+            getMapObjects();
+			StartTimers();
+			SmallMap.Loaded += Mapsample_Loaded;
+
+            //add data to progress bar
+            SetProgressBar();
+            
+
+
+            //foreach( appt a in list) create marker on calander
+
+
             //sitelist read from db - make list;
+
 
             //initialize webview for weather - link from dian
             WebView_Weather.Navigate(new Uri("http://forecast.io/embed/#lat=42.3583&lon=-71.0603&name=the Job Site&color=#00aaff&font=Segoe UI&units=uk"));
 
 		}
 
+        private void SetProgressBar()
+        {
+            numAppointments = appointments.Count;
+            // numComplete : get appointments which are not pending
+            // appointments.Where(a => a.Status != AppointmentStatus.Pending);
 
-		
+            txt_Remaining.Text = "Appointments Left: " + (numAppointments - numComplete);
 
-		private async void getMapObjects()
+            if (numAppointments > 0)
+            {
+                PB_Appointments.Value = numComplete;
+                PB_Appointments.Maximum = numAppointments;
+                txt_Percent.Text = (Math.Round(numComplete / numAppointments * 100)).ToString() + "%";
+            }
+        }
+
+        private async void getMapObjects()
 		{
 			foreach (Appointment a in appointments)
 			{

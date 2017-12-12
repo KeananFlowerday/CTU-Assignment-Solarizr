@@ -103,7 +103,7 @@
                 <DatePicker x:Name="dateApptDatePicker" HorizontalAlignment="Left" Margin="376,7,0,0" VerticalAlignment="Top"/>
                 <TextBlock HorizontalAlignment="Left" Margin="10,8,0,0" TextWrapping="Wrap" Text="New Appointment" VerticalAlignment="Top" Width="320" Height="30" FontSize="20" TextAlignment="Center"/>
             </Grid>
-            <controls:RadialProgressBar Grid.Column="2" HorizontalAlignment="Left" Height="70" Margin="10,5,0,0" VerticalAlignment="Top" Width="70" Thickness="4" Outline="LightGray" Foreground="Aquamarine" Minimum="0" Maximum="8" Value="5"/>
+            <controls:RadialProgressBar x:Name="PB_Appointments" Grid.Column="2" HorizontalAlignment="Left" Height="70" Margin="10,5,0,0" VerticalAlignment="Top" Width="70" Thickness="4" Outline="LightGray" Foreground="Aquamarine" Minimum="0" Maximum="8" Value="5"/>
             <TextBlock x:Name="txt_Remaining" Grid.Column="2" HorizontalAlignment="Left" Margin="90,28,-15,0" TextWrapping="Wrap" Text="Appointments Remaining: 3" VerticalAlignment="Top" Width="195" Height="23"/>
             <TextBlock x:Name="txt_Percent" Grid.Column="2" HorizontalAlignment="Left" Margin="31,31,0,0" TextWrapping="Wrap" Text="63%" VerticalAlignment="Top" Width="36" FontSize="12" RenderTransformOrigin="0.602,0.542" TextAlignment="Center"/>
             <Button HorizontalAlignment="Left" Margin="182,16,0,0" VerticalAlignment="Top" Width="38" Click="SetAlarm" Height="36">
