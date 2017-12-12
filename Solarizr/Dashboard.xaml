@@ -114,7 +114,7 @@
         </Grid>
 
         <Maps:MapControl x:Name="SmallMap" MapServiceToken="jD5kWxGj04JMc8cFcBhl~jWowhUGR8_6Yyh0PAJFKbw~AiqHwDVxeSIn2Ix2y7BMtaRrfh2Njv8ygrgXWMRsMrdYj0UpCRpOodyJpapJOywM" Grid.Column="2" HorizontalAlignment="Left" Margin="10,348,0,0" Grid.Row="1" VerticalAlignment="Top" Height="294" Width="408"/>
-        <CalendarView Grid.Column="1" HorizontalAlignment="Left" Margin="10,348,0,0" Grid.Row="1" VerticalAlignment="Top" Width="406" Height="294"/>
+        <CalendarView x:Name="ApptCalendar" Grid.Column="1" HorizontalAlignment="Left" Margin="10,348,0,0" Grid.Row="1" VerticalAlignment="Top" Width="406" Height="294"/>
         <Grid Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="53" VerticalAlignment="Top" Width="1280" Margin="0,0,-2,0" Grid.RowSpan="2">
             <CommandBar Margin="415,0,0,0" Background="Gainsboro" Height="53">
                 <CommandBar.Content>
