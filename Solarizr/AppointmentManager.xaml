@@ -56,8 +56,16 @@
                     <DataTemplate>
                         <Grid>
                             <StackPanel>
-                                <TextBlock Text="{Binding Site}"/>
-                                <TextBlock Text="{Binding Date}"/>
+                                <TextBlock Text="Appointment : " FontWeight="Bold"></TextBlock>
+                                <TextBlock Text="{Binding Date}"></TextBlock>
+                                <TextBlock Text="{Binding Customer.Name}"></TextBlock>
+                                <TextBlock Text="{Binding Customer.Phone}"></TextBlock>
+                                <TextBlock FontWeight="Bold" Text="Address : "></TextBlock>
+                                <TextBlock Text="{Binding Address.Street}"></TextBlock>
+                                <TextBlock Text="{Binding Address.Suburb}"></TextBlock>
+                                <TextBlock Text="{Binding Address.City}"></TextBlock>
+                                <TextBlock Text="{Binding Address.PostalCode}"></TextBlock>
+                                <TextBlock Text="{Binding Address.Country}"></TextBlock>
                                 <!--Other properties not neccessary as the appointment has not taken place yet-->
 
                             </StackPanel>
