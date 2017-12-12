@@ -28,18 +28,15 @@ namespace Solarizr
 	/// </summary>
 	public sealed partial class Dashboard : Page
 	{
-<<<<<<< HEAD
-        ObservableCollection<Appointment> Appointments;
-        //List<ProjectSite> SiteList = new List<ProjectSite>();
         //initialised below
-        public Dashboard()
-=======
+       
+
 		AppointmentData apptData = new AppointmentData();
 		ObservableCollection<Appointment> appointments;
 		
 		//initialised below
 		public Dashboard()
->>>>>>> e8a434f979499d4b360e9e13bae929c4412890e2
+
 		{
 			this.InitializeComponent();
 
@@ -61,73 +58,55 @@ namespace Solarizr
             WebView_Weather.Navigate(new Uri("http://forecast.io/embed/#lat=42.3583&lon=-71.0603&name=the Job Site&color=#00aaff&font=Segoe UI&units=uk"));
 
 		}
-<<<<<<< HEAD
 
-        private async void getMapObjects()
-        {
-            foreach (Appointment a in Appointments)
-=======
+
 		
-private async void getMapObjects()
-        {
-            foreach (Appointment a in appointments)
->>>>>>> e8a434f979499d4b360e9e13bae929c4412890e2
-            {
-                // The address or business to geocode.
-                string addressToGeocode = a.Address.ToString();
 
-                // The nearby location to use as a query hint.
-                BasicGeoposition queryHint = new BasicGeoposition();
-                queryHint.Latitude = -28;
-                queryHint.Longitude = 23;
-                Geopoint hintPoint = new Geopoint(queryHint);
+		private async void getMapObjects()
+		{
+			foreach (Appointment a in appointments)
+			{
+				// The address or business to geocode.
+				string addressToGeocode = a.Address.ToString();
 
-                // Geocode the specified address, using the specified reference point
-                // as a query hint. Return no more than 3 results.
-                MapLocationFinderResult result =
-<<<<<<< HEAD
-                      await MapLocationFinder.FindLocationsAsync(
-                                        addressToGeocode,
-                                        hintPoint,
-                                        3);
-=======
-                      await MapLocationFinder.FindLocationsAsync(addressToGeocode, hintPoint);
->>>>>>> e8a434f979499d4b360e9e13bae929c4412890e2
+				// The nearby location to use as a query hint.
+				BasicGeoposition queryHint = new BasicGeoposition();
+				queryHint.Latitude = -28;
+				queryHint.Longitude = 23;
+				Geopoint hintPoint = new Geopoint(queryHint);
 
-                // If the query returns results, display the coordinates
-                // of the first result.
-                if (result.Status == MapLocationFinderStatus.Success)
-                {
-<<<<<<< HEAD
-                    tbOutputText.Text = "result = (" +
-                          result.Locations[0].Point.Position.Latitude.ToString() + "," +
-                          result.Locations[0].Point.Position.Longitude.ToString() + ")";
-=======
-                    Debug.WriteLine("result = (" +
-                          result.Locations[0].Point.Position.Latitude.ToString() + "," +
-                          result.Locations[0].Point.Position.Longitude.ToString() + ")");
+				// Geocode the specified address, using the specified reference point
+				// as a query hint. Return no more than 3 results.
+				MapLocationFinderResult result =
+					  await MapLocationFinder.FindLocationsAsync(addressToGeocode, hintPoint);
 
-                    var center =
-                    new Geopoint(new BasicGeoposition()
-                    {
-                        Latitude = result.Locations[0].Point.Position.Latitude,
-                        Longitude = result.Locations[0].Point.Position.Longitude
+				// If the query returns results, display the coordinates
+				// of the first result.
+				if (result.Status == MapLocationFinderStatus.Success)
+				{
+					Debug.WriteLine("result = (" +
+						  result.Locations[0].Point.Position.Latitude.ToString() + "," +
+						  result.Locations[0].Point.Position.Longitude.ToString() + ")");
 
-                    });
-                    await SmallMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 3000));
+					var center =
+					new Geopoint(new BasicGeoposition()
+					{
+						Latitude = result.Locations[0].Point.Position.Latitude,
+						Longitude = result.Locations[0].Point.Position.Longitude
 
-                    //Define MapIcon
-                    MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = a.Customer.Name, ZIndex = 0 };
-                    // add to map and center it
-                    SmallMap.MapElements.Add(myPOI);
+					});
+					await SmallMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 3000));
 
->>>>>>> e8a434f979499d4b360e9e13bae929c4412890e2
-                }
-            }
+					//Define MapIcon
+					MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = a.Customer.Name, ZIndex = 0 };
+					// add to map and center it
+					SmallMap.MapElements.Add(myPOI);
 
-        }
+				}
+			}
 
-        private DispatcherTimer t_DateTime;
+		}
+		private DispatcherTimer t_DateTime;
 
 		public void StartTimers()
 		{
