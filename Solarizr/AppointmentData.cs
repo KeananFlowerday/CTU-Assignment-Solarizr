@@ -38,11 +38,20 @@ namespace Solarizr
 						_app.Date = DateTime.Parse(query.GetString(1));
 						switch (query.GetString(2))
 						{
-							case ("Done"):
-								_app.Status = AppointmentStatus.Done;
+							case ("Pending"):
+								_app.Status = AppointmentStatus.Pending;
+								break;
+							case ("Approved"):
+								_app.Status = AppointmentStatus.Approved;
+								break;
+							case ("Denied"):
+								_app.Status = AppointmentStatus.Denied;
+								break;
+							case ("Skipped"):
+								_app.Status = AppointmentStatus.Skipped;
 								break;
 							default:
-								_app.Status = AppointmentStatus.Done;
+								_app.Status = AppointmentStatus.Pending;
 								break;
 						}
 						switch (int.Parse(query.GetString(3)))
@@ -54,7 +63,7 @@ namespace Solarizr
 								_app.Submitted = true;
 								break;
 							default:
-								_app.Status = AppointmentStatus.Done;
+								_app.Submitted = false;
 								break;
 						}
 						_app.Customer = new User
@@ -140,11 +149,20 @@ namespace Solarizr
 							_app.Date = DateTime.Parse(query.GetString(1));
 							switch (query.GetString(2))
 							{
-								case ("Done"):
-									_app.Status = AppointmentStatus.Done;
+								case ("Pending"):
+									_app.Status = AppointmentStatus.Pending;
+									break;
+								case ("Approved"):
+									_app.Status = AppointmentStatus.Approved;
+									break;
+								case ("Denied"):
+									_app.Status = AppointmentStatus.Denied;
+									break;
+								case ("Skipped"):
+									_app.Status = AppointmentStatus.Skipped;
 									break;
 								default:
-									_app.Status = AppointmentStatus.Done;
+									_app.Status = AppointmentStatus.Pending;
 									break;
 							}
 							switch (int.Parse(query.GetString(3)))
@@ -156,7 +174,7 @@ namespace Solarizr
 									_app.Submitted = true;
 									break;
 								default:
-									_app.Status = AppointmentStatus.Done;
+									_app.Submitted = false;
 									break;
 							}
 							_app.Customer = new User
@@ -245,11 +263,20 @@ namespace Solarizr
 							_app.Date = DateTime.Parse(query.GetString(1));
 							switch (query.GetString(2))
 							{
-								case ("Done"):
-									_app.Status = AppointmentStatus.Done;
+								case ("Pending"):
+									_app.Status = AppointmentStatus.Pending;
+									break;
+								case ("Approved"):
+									_app.Status = AppointmentStatus.Approved;
+									break;
+								case ("Denied"):
+									_app.Status = AppointmentStatus.Denied;
+									break;
+								case ("Skipped"):
+									_app.Status = AppointmentStatus.Skipped;
 									break;
 								default:
-									_app.Status = AppointmentStatus.Done;
+									_app.Status = AppointmentStatus.Pending;
 									break;
 							}
 							switch (int.Parse(query.GetString(3)))
@@ -261,7 +288,7 @@ namespace Solarizr
 									_app.Submitted = true;
 									break;
 								default:
-									_app.Status = AppointmentStatus.Done;
+									_app.Submitted = false;
 									break;
 							}
 							_app.Customer = new User

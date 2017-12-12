@@ -35,6 +35,9 @@ namespace Solarizr
 
 	public enum AppointmentStatus
 	{
-		Done
+		Pending,
+		Approved,
+		Denied,
+		Skipped
 	}
 }

@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Solarizr
 {
-    class Address
-    {
+	class Address
+	{
 		public Address()
 		{
 
 		}
-		public Address( string street, string suburb, string city, string postalCode, string country)
+		public Address(string street, string suburb, string city, string postalCode, string country)
 		{
-			
+
 			Street = street;
 			Suburb = suburb;
 			City = city;
@@ -50,11 +50,17 @@ namespace Solarizr
 				while (query.Read())
 				{
 					string _ret = (query.GetString(0));
-					int.TryParse(_ret,out _return);
+					int.TryParse(_ret, out _return);
 				}
 				db.Close();
 			}
 			return _return;
 		}
+
+		public override string ToString()
+		{
+			return string.Format("{0} {1} {2} {3}", Street, Suburb, City, Country);
+		}
 	}
+
 }
