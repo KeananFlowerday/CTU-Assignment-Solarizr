@@ -59,6 +59,7 @@ namespace Solarizr
 					"PK_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
 					"Date text NULL, " +
 					"Status text NULL, " +
+					"Submitted BLOB NULL, " +
 					"FK_CID INTEGER NULL, " +
 					"FK_SMID INTEGER NULL, " +
 					"FK_AdID INTEGER NULL, " +
