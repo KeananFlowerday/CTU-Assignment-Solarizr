@@ -12,28 +12,39 @@ namespace Solarizr
 		{
 
 		}
-		public Appointment (DateTime date, AppointmentStatus status, User customer, Address address, User siteManager)
-		{
-		
-			Date = date;
-			Status = status;
-			Customer = customer;
-			Address = address;
-			SiteManager = siteManager;
-		}
 
-		public int ID { get; set; }
-		public DateTime Date { get; set; }
-		public AppointmentStatus Status { get; set; }
-		public User Customer { get; set; }
-		public Address Address { get; set; }
-		public User SiteManager { get; set; }
+        public Appointment(DateTime date, User customer, Address address, User siteManager)
+        {
 
-	}
+            Date = date;
+            Status = AppointmentStatus.Pending;
+            Customer = customer;
+            Address = address;
+            SiteManager = siteManager;
+            Submitted = Submitted.No;
+        }
 
-	public enum AppointmentStatus
-	{
-		UnSubmitted,
-		Submitted
-	}
+        public int ID { get; set; }
+        public DateTime Date { get; set; }
+        public AppointmentStatus Status { get; set; }
+        public User Customer { get; set; }
+        public Address Address { get; set; }
+        public User SiteManager { get; set; }
+        public Submitted Submitted { get; set; }
+
+    }
+
+    public enum AppointmentStatus
+    {
+        Pending,
+        Approved,
+        Denied,
+        Skipped
+    }
+
+    public enum Submitted
+    {
+        Yes,
+        No
+    }
 }

@@ -25,26 +25,62 @@ namespace Solarizr
 	/// </summary>
 	public sealed partial class Dashboard : Page
 	{
-
-		//List<ProjectSite> SiteList = new List<ProjectSite>();
-		//initialised below
-		public Dashboard()
+        ObservableCollection<Appointment> Appointments;
+        //List<ProjectSite> SiteList = new List<ProjectSite>();
+        //initialised below
+        public Dashboard()
 		{
 			this.InitializeComponent();
 
 			StartTimers();
 
 			SmallMap.Loaded += Mapsample_Loaded;
-			//foreach( appt a in list) create marker on calander
-			//foreach(appt a in list) if a.date == today create marker on map
-			//sitelist read from db - make list;
+            
+            getMapObjects();
+            
+            //foreach( appt a in list) create marker on calander
+            //foreach(appt a in list) if a.date == today create marker on map
+            //sitelist read from db - make list;
 
-			//initialize webview for weather - link from dian
-			WebView_Weather.Navigate(new Uri("http://forecast.io/embed/#lat=42.3583&lon=-71.0603&name=the Job Site&color=#00aaff&font=Segoe UI&units=uk"));
+            //initialize webview for weather - link from dian
+            WebView_Weather.Navigate(new Uri("http://forecast.io/embed/#lat=42.3583&lon=-71.0603&name=the Job Site&color=#00aaff&font=Segoe UI&units=uk"));
 
 		}
 
-		private DispatcherTimer t_DateTime;
+        private async void getMapObjects()
+        {
+            foreach (Appointment a in Appointments)
+            {
+                // The address or business to geocode.
+                string addressToGeocode = a.Address.ToString();
+
+                // The nearby location to use as a query hint.
+                BasicGeoposition queryHint = new BasicGeoposition();
+                queryHint.Latitude = -28;
+                queryHint.Longitude = 23;
+                Geopoint hintPoint = new Geopoint(queryHint);
+
+                // Geocode the specified address, using the specified reference point
+                // as a query hint. Return no more than 3 results.
+                MapLocationFinderResult result =
+                      await MapLocationFinder.FindLocationsAsync(
+                                        addressToGeocode,
+                                        hintPoint,
+                                        3);
+
+                // If the query returns results, display the coordinates
+                // of the first result.
+                if (result.Status == MapLocationFinderStatus.Success)
+                {
+                    tbOutputText.Text = "result = (" +
+                          result.Locations[0].Point.Position.Latitude.ToString() + "," +
+                          result.Locations[0].Point.Position.Longitude.ToString() + ")";
+                }
+            }
+
+        }
+
+        private DispatcherTimer t_DateTime;
 
 		public void StartTimers()
 		{
