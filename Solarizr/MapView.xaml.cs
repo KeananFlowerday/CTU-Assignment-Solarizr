@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Services.Maps;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
@@ -24,12 +27,17 @@ namespace Solarizr
 	/// </summary>
 	public sealed partial class MapView : Page
 	{
+		ObservableCollection<Appointment> appoinments;
+		AppointmentData _ad = new AppointmentData();
 		public MapView()
 		{
 			this.InitializeComponent();
+			appoinments = _ad.GetTodaysAppointments();
 			MainMap.Loaded += Mapsample_Loaded;
-
+			getMapObjects();
+			
 			StartTimers();
+
 		}
 
 		private DispatcherTimer t_DateTime;
@@ -68,10 +76,54 @@ namespace Solarizr
 			await MainMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 3000));
 
 			//Define MapIcon
-			MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = "Qaanita", ZIndex = 0 };
-			// add to map and center it
-			MainMap.MapElements.Add(myPOI);
+			//MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = "Qaanita", ZIndex = 0 };
+			//// add to map and center it
+			//MainMap.MapElements.Add(myPOI);
 
+
+		}
+		private async void getMapObjects()
+		{
+			foreach (Appointment a in appoinments)
+			{
+				// The address or business to geocode.
+				string addressToGeocode = a.Address.ToString();
+
+				// The nearby location to use as a query hint.
+				BasicGeoposition queryHint = new BasicGeoposition();
+				queryHint.Latitude = -28;
+				queryHint.Longitude = 23;
+				Geopoint hintPoint = new Geopoint(queryHint);
+
+				// Geocode the specified address, using the specified reference point
+				// as a query hint. Return no more than 3 results.
+				MapLocationFinderResult result =
+					  await MapLocationFinder.FindLocationsAsync(addressToGeocode, hintPoint);
+
+				// If the query returns results, display the coordinates
+				// of the first result.
+				if (result.Status == MapLocationFinderStatus.Success)
+				{
+					Debug.WriteLine("result = (" +
+						  result.Locations[0].Point.Position.Latitude.ToString() + "," +
+						  result.Locations[0].Point.Position.Longitude.ToString() + ")");
+
+					var center =
+					new Geopoint(new BasicGeoposition()
+					{
+						Latitude = result.Locations[0].Point.Position.Latitude,
+						Longitude = result.Locations[0].Point.Position.Longitude
+
+					});
+					await MainMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 3000));
+
+					//Define MapIcon
+					MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = a.Customer.Name, ZIndex = 0 };
+					//// add to map and center it
+					MainMap.MapElements.Add(myPOI);
+
+				}
+			}
 
 		}
 
