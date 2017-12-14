@@ -32,7 +32,7 @@ namespace Solarizr
 		AppointmentData apptData = new AppointmentData();
 		ObservableCollection<Appointment> todaysAppointments;
         ObservableCollection<Appointment> allAppointments;
-        ObservableCollection<Appointment> upcomingAppointments;
+        ObservableCollection<Appointment> upcomingAppointments = new ObservableCollection<Appointment>();
 
         //counters for todays appointments
         double numAppointments = 0;
@@ -58,7 +58,6 @@ namespace Solarizr
 
             //foreach(appt a in list) if a.date == today create marker on map
             
-			StartTimers();
 			SmallMap.Loaded += Mapsample_Loaded;
             getMapObjects();
 
@@ -70,14 +69,33 @@ namespace Solarizr
                     upcomingAppointments.Add(a);
                 }
             }
+            //order the appointments by date/time.
+            var tempList = upcomingAppointments.OrderBy(a => a.Date);
 
+            tempList.ToList().ForEach(q =>
+            {
+                upcomingAppointments.Remove(q);
+                upcomingAppointments.Add(q);
+            });
+
+            //adding combobox items to form
+            cmbx_Status.Items.Add("Pending");
+            cmbx_Status.Items.Add("Approved");
+            cmbx_Status.Items.Add("Denied");
+            cmbx_Status.Items.Add("Skipped");
+
+            //add upcoming appt data to form
+            InitializeForm();
+            
             //add data to progress bar
-            //numAppointments = todaysAppointments.Count;
-            //numRemaining = upcomingAppointments.Count;
-            //numComplete = numAppointments - numRemaining;
+            numAppointments = todaysAppointments.Count;
+            numRemaining = upcomingAppointments.Count;
+            numComplete = numAppointments - numRemaining;
 
+            //initial setting of progress bar
             SetProgressBar();
 
+            StartTimers();
             //add apointment combobox.
             foreach (User u in projectSites)
             {
@@ -96,6 +114,16 @@ namespace Solarizr
           
 
 		}
+
+        private void InitializeForm()
+        {
+            Appointment curr = upcomingAppointments[0];
+            NextAppt_txtblock.Text = curr.Customer.Name + ", at " + curr.Date.Hour + ":" + curr.Date.Minute;
+            txtCust.Text = curr.Customer.Name;
+            txtPhone.Text = curr.Customer.Phone;
+            txtManager.Text = curr.SiteManager.Name;
+
+        }
 
         private void SetProgressBar()
         {
@@ -153,6 +181,7 @@ namespace Solarizr
 			}
 
 		}
+
 		private DispatcherTimer t_DateTime;
 
 		public void StartTimers()
@@ -162,7 +191,7 @@ namespace Solarizr
 			t_DateTime.Interval = TimeSpan.FromSeconds(1);
 			t_DateTime.Start();
 
-		}
+        }
 
 		public void UpdateDateTime(Object sender, Object e)
 		{
@@ -170,7 +199,35 @@ namespace Solarizr
 
 			txtCurrTime.Text = datetime.ToString("hh:mm");
 			txtCurrDate.Text = datetime.ToString("dddd, d MMMM yyyy");
-		}
+            try
+            {
+                Appointment curr = upcomingAppointments[0];
+                if (curr.Date > DateTime.Now)
+                {
+                    TimeSpan timebefore = curr.Date - datetime;
+                    if ((timebefore.TotalHours <= 24) && (timebefore.TotalSeconds > 0))
+                    {
+
+                        txtTimeBefore.Text = timebefore.Hours.ToString() + ":" + timebefore.Minutes.ToString();
+                    }
+                    else if (timebefore.TotalDays > 0)
+                    {
+                        txtTimeBefore.Text = timebefore.TotalDays.ToString();
+                    }
+                    else
+                    {
+                        txtTimeBefore.Text = "Error";
+                    }
+                }
+            }
+            catch (Exception execption)
+            {
+                txtTimeBefore.Text = "No Appts";
+                Debug.WriteLine(execption.ToString());
+                throw;
+            }
+            
+        }
 
 		private void BtnApptCreate_Click(object sender, RoutedEventArgs e)
 		{
@@ -245,5 +302,14 @@ namespace Solarizr
 		{
 			//toastnotifications
 		}
+
+        public void CountDown()
+        {
+            Appointment curr = upcomingAppointments[0];
+            if (curr.Date < DateTime.Now)
+            {
+
+            }
+        }
 	}
 }

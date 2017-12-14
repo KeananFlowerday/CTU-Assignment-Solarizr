@@ -20,18 +20,17 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid x:Name="ApptForm" BorderBrush="Aquamarine" BorderThickness="1" HorizontalAlignment="Left" Height="632" Margin="8,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="408">
-            <TextBlock HorizontalAlignment="Left" Margin="13,10,0,0" TextWrapping="Wrap" Text="Next Appointment:" VerticalAlignment="Top" Width="389" FontSize="20" Height="29"/>
-            <TextBox x:Name="NextAppt_txtblock" HorizontalAlignment="Left" Margin="15,46,0,0" TextWrapping="Wrap" Text="---" VerticalAlignment="Top" Height="36" Width="381" FontSize="16" IsReadOnly="True" PlaceholderText="" BorderBrush="#66747474"/>
+            <TextBlock HorizontalAlignment="Left" Margin="13,10,0,0" TextWrapping="Wrap" Text="Next Appointment:" VerticalAlignment="Top" Width="390" FontSize="20" Height="29"/>
+            <TextBox x:Name="NextAppt_txtblock" HorizontalAlignment="Left" Margin="6,46,0,0" TextWrapping="Wrap" Text="---" VerticalAlignment="Top" Height="36" Width="390" FontSize="16" IsReadOnly="True" PlaceholderText="" BorderBrush="#66747474"/>
             <ComboBox x:Name="cmbx_Status" HorizontalAlignment="Left" Margin="154,87,0,0" VerticalAlignment="Top" Width="242" FontSize="16" BorderBrush="#66747474"/>
             <TextBlock HorizontalAlignment="Left" Margin="14,93,0,0" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.79,-0.063"/>
-            <StackPanel x:Name="SiteInfo_SPanel" HorizontalAlignment="Left" Height="87" Margin="4,126,0,0" VerticalAlignment="Top" Width="392" BorderBrush="MediumAquamarine" BorderThickness="1">
-                <TextBlock Text="{Binding CustomerName}" FontSize="16"></TextBlock>
-                <TextBlock Text="{Binding PhoneNumber}" FontSize="16"></TextBlock>
-                <TextBlock Text="{Binding Address}" FontSize="16"></TextBlock>
-                <TextBlock Text="{Binding SiteManager}" FontSize="16"></TextBlock>
+            <StackPanel  Name="SiteInfo_LV"  HorizontalAlignment="Left" Height="69" Margin="6,127,0,0" VerticalAlignment="Top" Width="390" BorderBrush="MediumAquamarine" BorderThickness="1">
+                <TextBlock x:Name="txtCust" Text="Customer: " FontSize="16"></TextBlock>
+                <TextBlock x:Name="txtPhone" Text="Phone: " FontSize="16"></TextBlock>
+                <TextBlock x:Name="txtManager" Text="Site Manager: " FontSize="16"></TextBlock>
             </StackPanel>
-            <TextBox x:Name="txt_Comments" HorizontalAlignment="Left" Margin="7,241,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="135" Width="389" FontSize="20" BorderBrush="#66747474"/>
-            <TextBlock HorizontalAlignment="Left" Margin="12,219,0,0" TextWrapping="Wrap" Text="Notes and Comments:" VerticalAlignment="Top" FontSize="16"/>
+            <TextBox x:Name="txt_Comments" HorizontalAlignment="Left" Margin="6,229,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="135" Width="390" FontSize="20" BorderBrush="#66747474"/>
+            <TextBlock HorizontalAlignment="Left" Margin="14,202,0,0" TextWrapping="Wrap" Text="Notes and Comments:" VerticalAlignment="Top" FontSize="16"/>
             <Button x:Name="BtnReportSave" HorizontalAlignment="Center" Margin="296,577,72,0" VerticalAlignment="Top" Height="40" Width="40">
                 <Button.Background>
                     <ImageBrush ImageSource="Assets/Icons/save.png"/>
@@ -47,7 +46,7 @@
                     <ImageBrush Stretch="Fill" ImageSource="Assets/Icons/full-screen.png"/>
                 </Button.Background>
             </Button>
-            <controls:Carousel HorizontalAlignment="Left" Height="177" Margin="10,384,0,0" VerticalAlignment="Top" Width="385">
+            <controls:Carousel x:Name="imgCarousel" HorizontalAlignment="Left" Height="175" Margin="11,387,0,0" VerticalAlignment="Top" Width="385" AllowDrop="True">
                 <controls:Carousel.EasingFunction>
                     <CubicEase EasingMode="EaseOut" />
                 </controls:Carousel.EasingFunction>
@@ -61,6 +60,16 @@
                     </DataTemplate>
                 </controls:Carousel.ItemTemplate>
             </controls:Carousel>
+            <Button x:Name="btnAddImage" Content="" HorizontalAlignment="Left" Margin="7,578,0,0" VerticalAlignment="Top" Height="40" Width="40">
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Icons/attachment.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnTakePic" Content="" HorizontalAlignment="Left" Margin="53,582,0,0" VerticalAlignment="Top" Height="40" Width="40" RenderTransformOrigin="0.675,0.4">
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Icons/photo-camera.png"/>
+                </Button.Background>
+            </Button>
         </Grid>
         <Grid x:Name="DashPanel" BorderBrush="Aquamarine" BorderThickness="1" HorizontalAlignment="Left" Height="333" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="834" Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
