@@ -33,7 +33,7 @@ namespace Solarizr
 			try
 			{
 				
-				_out = _ps.GetAllUsers();
+				_out = _ps.GetAllSites();
 				ListV_Upcoming.ItemsSource = _out;
 
 			}
