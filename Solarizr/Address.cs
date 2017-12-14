@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Solarizr
 {
-	class Address
+	public class Address
 	{
 		public Address()
 		{
