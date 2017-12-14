@@ -123,7 +123,7 @@ namespace Solarizr
 						Longitude = result.Locations[0].Point.Position.Longitude
 
 					});
-					await SmallMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 3000));
+					//await SmallMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 3000));
 
 					//Define MapIcon
 					MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = a.Customer.Name, ZIndex = 0 };
@@ -183,7 +183,7 @@ namespace Solarizr
 			 geoLocator = new Geolocator();
 			geoLocator.DesiredAccuracy = PositionAccuracy.High;
 			Geoposition pos = await geoLocator.GetGeopositionAsync();
-			WebView_Weather.Navigate(new Uri("http://forecast.io/embed/#lat=" + pos.Coordinate.Point.Position.Latitude.ToString() +"&lon="+pos.Coordinate.Point.Position.Longitude.ToString()+"&name=the Job Site&color=#00aaff&font=Segoe UI&units=uk"));
+			WebView_Weather.Navigate(new Uri("http://forecast.io/embed/#lat=" + pos.Coordinate.Point.Position.Latitude.ToString() +"&lon="+pos.Coordinate.Point.Position.Longitude.ToString()+"&name=the Job Site&color=#00aaff&font=Segoe UI&units=ca"));
 
 			var center =
 				new Geopoint(new BasicGeoposition()
@@ -192,7 +192,7 @@ namespace Solarizr
 					Longitude = pos.Coordinate.Point.Position.Longitude
 
 				});
-			await SmallMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 3000));
+			await SmallMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 5000));
 
 			//Define MapIcon
 			MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = "You", ZIndex = 0 };
