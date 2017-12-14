@@ -73,12 +73,12 @@ namespace Solarizr
 					Longitude = pos.Coordinate.Point.Position.Longitude
 
 				});
-			await MainMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 3000));
+			await MainMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 10000));
 
 			//Define MapIcon
-			//MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = "Qaanita", ZIndex = 0 };
+			MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = "You", ZIndex = 0 };
 			//// add to map and center it
-			//MainMap.MapElements.Add(myPOI);
+			MainMap.MapElements.Add(myPOI);
 
 
 		}
@@ -115,7 +115,7 @@ namespace Solarizr
 						Longitude = result.Locations[0].Point.Position.Longitude
 
 					});
-					await MainMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 3000));
+				//	await MainMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 3000));
 
 					//Define MapIcon
 					MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = a.Customer.Name, ZIndex = 0 };

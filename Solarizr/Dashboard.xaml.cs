@@ -32,7 +32,7 @@ namespace Solarizr
 		AppointmentData apptData = new AppointmentData();
 		ObservableCollection<Appointment> todaysAppointments;
         ObservableCollection<Appointment> allAppointments;
-        ObservableCollection<Appointment> upcomingAppointments;
+        ObservableCollection<Appointment> upcomingAppointments = new ObservableCollection<Appointment>();
 
         //counters for todays appointments
         double numAppointments = 0;
@@ -58,7 +58,7 @@ namespace Solarizr
 
             //foreach(appt a in list) if a.date == today create marker on map
             
-			StartTimers();
+			
 			SmallMap.Loaded += Mapsample_Loaded;
             getMapObjects();
 
@@ -77,9 +77,9 @@ namespace Solarizr
             //numComplete = numAppointments - numRemaining;
 
             SetProgressBar();
-
-            //add apointment combobox.
-            foreach (User u in projectSites)
+			StartTimers();
+			//add apointment combobox.
+			foreach (User u in projectSites)
             {
                 cmbxApptSitePicker.Items.Add(u.Name);
             }
