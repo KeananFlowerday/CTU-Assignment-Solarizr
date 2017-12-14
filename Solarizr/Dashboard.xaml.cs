@@ -37,7 +37,7 @@ namespace Solarizr
 
         double numAppointments = 0;
         double numComplete = 0;
-		
+		Geolocator geoLocator;
 		//initialised below
 		public Dashboard()
 
@@ -180,7 +180,7 @@ namespace Solarizr
 
 		private async void Mapsample_Loaded(object sender, RoutedEventArgs e)
 		{
-			var geoLocator = new Geolocator();
+			 geoLocator = new Geolocator();
 			geoLocator.DesiredAccuracy = PositionAccuracy.High;
 			Geoposition pos = await geoLocator.GetGeopositionAsync();
 
