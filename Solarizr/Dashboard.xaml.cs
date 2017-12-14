@@ -44,7 +44,7 @@ namespace Solarizr
         ObservableCollection<User> projectSites;
 
         //initialised below
-        public Dashboard()
+      
 		Geolocator geoLocator;
 		//initialised below
 		public Dashboard()
