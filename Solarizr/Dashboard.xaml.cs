@@ -58,6 +58,7 @@ namespace Solarizr
 
             //foreach(appt a in list) if a.date == today create marker on map
             
+
 			SmallMap.Loaded += Mapsample_Loaded;
             getMapObjects();
 
@@ -95,9 +96,15 @@ namespace Solarizr
             //initial setting of progress bar
             SetProgressBar();
 
+
             StartTimers();
             //add apointment combobox.
             foreach (User u in projectSites)
+
+			StartTimers();
+			//add apointment combobox.
+			foreach (User u in projectSites)
+
             {
                 cmbxApptSitePicker.Items.Add(u.Name);
             }

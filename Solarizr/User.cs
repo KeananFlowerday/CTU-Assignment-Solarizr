@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Solarizr
 {
-    class User
+    public class  User
     {
 		public User()
 		{
