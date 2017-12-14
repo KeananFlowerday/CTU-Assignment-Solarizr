@@ -351,14 +351,14 @@ namespace Solarizr
 				try
 				{
 					db.Open();
-					SqliteCommand _insertAddress = new SqliteCommand();
+					SqliteCommand _insertApp = new SqliteCommand();
 					SqliteCommand _insertUser = new SqliteCommand();
 					_insertUser.Connection = db;
-					_insertAddress.Connection = db;
-					_insertAddress.CommandText = "INSERT INTO Address_tbl (Street, Suburb, City, Postal_Code, Country) VALUES('" + _App.Address.Street + "','" + _App.Address.Suburb + "','" + _App.Address.City + "','" + _App.Address.PostalCode + "','" + _App.Address.Country + "'); ";
+					_insertApp.Connection = db;
+					_insertApp.CommandText = "insert into Appointment_tbl (Date, Status, Submitted,FK_CID,FK_SMID,FK_AdID ) values  ('" + _App.Date + "', '" + _App.Status.ToString() + "', " + _App.Submitted + "," + _App.Customer.ID + "," + _App.SiteManager.ID + "," + _App.Address.ID + " )";
 					try
 					{
-						_insertAddress.ExecuteReader();
+						_insertApp.ExecuteReader();
 
 					}
 					catch (SqliteException error)
@@ -367,26 +367,7 @@ namespace Solarizr
 						return false;
 					}
 
-					int _adIndex = Address.LastIndex();
-
-					if (_adIndex == -1)
-					{
-						throw new SqliteException("You Done Fucked Up", 500);
-					}
-
-					//Use parameterized query to prevent SQL injection attacks
-					_insertUser.CommandText = "INSERT INTO User_tbl(Name, Phone, FK_AdID) VALUES ('" + _App.Customer.Name + "','" + _App.Customer.Phone + "','" + _adIndex + "');";
-
-					try
-					{
-						//_insertAddress.ExecuteReader();
-						_insertUser.ExecuteReader();
-					}
-					catch (SqliteException error)
-					{
-						Debug.WriteLine("Insert User Error");
-						return false;
-					}
+			
 					db.Close();
 				}
 				catch (Exception ex)
