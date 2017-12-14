@@ -61,7 +61,7 @@ namespace Solarizr
 			return null;
 		}
 
-		public ObservableCollection<User> GetAllUsers()
+		public ObservableCollection<User> GetAllSites()
 		{
 			ObservableCollection<User> _users = new ObservableCollection<User>();
 			using (SqliteConnection db = new SqliteConnection("Filename=Solarizr_db.db"))
