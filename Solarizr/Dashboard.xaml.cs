@@ -70,7 +70,7 @@ namespace Solarizr
 
 
             //initialize webview for weather - link from dian
-            WebView_Weather.Navigate(new Uri("http://forecast.io/embed/#lat=42.3583&lon=-71.0603&name=the Job Site&color=#00aaff&font=Segoe UI&units=uk"));
+          
 
 		}
 
@@ -183,7 +183,7 @@ namespace Solarizr
 			 geoLocator = new Geolocator();
 			geoLocator.DesiredAccuracy = PositionAccuracy.High;
 			Geoposition pos = await geoLocator.GetGeopositionAsync();
-
+			WebView_Weather.Navigate(new Uri("http://forecast.io/embed/#lat=" + pos.Coordinate.Point.Position.Latitude.ToString() +"&lon="+pos.Coordinate.Point.Position.Longitude.ToString()+"&name=the Job Site&color=#00aaff&font=Segoe UI&units=uk"));
 
 			var center =
 				new Geopoint(new BasicGeoposition()
@@ -195,9 +195,9 @@ namespace Solarizr
 			await SmallMap.TrySetSceneAsync(MapScene.CreateFromLocationAndRadius(center, 3000));
 
 			//Define MapIcon
-			//MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = "Qaanita", ZIndex = 0 };
-			// add to map and center it
-			//SmallMap.MapElements.Add(myPOI);
+			MapIcon myPOI = new MapIcon { Location = center, NormalizedAnchorPoint = new Point(0.5, 1.0), Title = "You", ZIndex = 0 };
+			//add to map and center it
+			SmallMap.MapElements.Add(myPOI);
 
 
 		}
