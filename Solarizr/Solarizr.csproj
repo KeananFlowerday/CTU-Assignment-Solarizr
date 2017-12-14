@@ -133,7 +133,9 @@
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
     <Content Include="Assets\Icons\alarm.png" />
+    <Content Include="Assets\Icons\attachment.png" />
     <Content Include="Assets\Icons\full-screen.png" />
+    <Content Include="Assets\Icons\photo-camera.png" />
     <Content Include="Assets\Icons\save.png" />
     <Content Include="Assets\Icons\send.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
