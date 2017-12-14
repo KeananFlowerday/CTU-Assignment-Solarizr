@@ -34,7 +34,7 @@ namespace Solarizr
 
 			try
 			{
-				appoinments = _ad.GetTodaysAppointments();
+				appoinments = _ad.GetUpcomingAppointments();
 				//cmb_Sites.ItemsSource = _out;
 				ListV_Upcoming.ItemsSource = appoinments;
 			}
