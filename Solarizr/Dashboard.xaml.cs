@@ -43,8 +43,8 @@ namespace Solarizr
         ProjectSiteData psData = new ProjectSiteData();
         ObservableCollection<User> projectSites;
 
-        //initialised below
-       
+ 
+
 		Geolocator geoLocator;
 		//initialised below
 		public Dashboard()
