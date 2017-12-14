@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-
   <Identity Name="36489335-8f90-4686-9785-adaf2a5e7f0c" Publisher="CN=Keanan Flowerday" Version="1.0.9.0" />
-
   <mp:PhoneIdentity PhoneProductId="36489335-8f90-4686-9785-adaf2a5e7f0c" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Solarizr</DisplayName>
-    <PublisherDisplayName>Qaanita Fataar</PublisherDisplayName>
+    <PublisherDisplayName>Keanan Flowerday</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
